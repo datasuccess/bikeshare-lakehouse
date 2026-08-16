@@ -1,0 +1,62 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.uv/
+.ipynb_checkpoints/
+
+# --- Secrets / env ---
+.env
+.env.*
+!.env.example
+
+# --- Data / generated (raw + lake are regenerated, never committed) ---
+data/
+bronze/
+silver/
+gold/
+warehouse/
+*.duckdb
+*.duckdb.wal
+*.parquet
+*.csv
+!seeds/**/*.csv
+*.db
+
+# --- dbt ---
+target/
+dbt_packages/
+logs/
+.user.yml
+
+# --- Airflow (local) ---
+airflow.db
+airflow-webserver.pid
+standalone_admin_password.txt
+
+# --- Terraform (cloud track, later) ---
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+!*.tfvars.example
+.terraform.lock.hcl
+
+# --- Docker / local infra volumes ---
+**/volumes/
+**/pgdata/
+**/minio-data/
+
+# --- Evidence / node (showcase dashboard) ---
+node_modules/
+.evidence/
+build/
+.svelte-kit/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/
+*.swp

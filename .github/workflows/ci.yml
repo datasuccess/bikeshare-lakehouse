@@ -1,0 +1,42 @@
+# CI — runs on every PR/push to main.
+# Purpose: guard the repo before there's a dbt project — (1) SECRET SCAN, (2) file hygiene.
+# It grows into `dbt build --target ci` on DuckDB once Phase 1+ lands (see docs/04-roadmap.md).
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: secret-scan + hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0            # gitleaks scans full history
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run pre-commit (gitleaks, detect-private-key, hygiene)
+        uses: pre-commit/action@v3.0.1
+
+  # Placeholder for Phase 1+ — uncomment once dbt/ exists (installs deps, then sqlfluff + dbt build):
+  # build:
+  #   name: dbt build + test (DuckDB)
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: astral-sh/setup-uv@v5
+  #       with: { enable-cache: true }
+  #     - run: uv sync --frozen
+  #     - run: uv run dbt deps --project-dir dbt
+  #     - run: uv run sqlfluff lint dbt/models
+  #     - run: uv run dbt build --project-dir dbt --target ci
