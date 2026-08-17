@@ -23,7 +23,7 @@ For anything in this repo, you should be able to answer, unprompted:
 | Phase | Walkthrough | Key concepts you'll be able to explain |
 |---|---|---|
 | 1 · Ingestion | [`../ingestion/LEARNING.md`](../ingestion/LEARNING.md) | GBFS snapshots, immutable Bronze, idempotency, retry/backoff, why land raw |
-| 2 · Lakehouse | _(added in phase)_ | Iceberg tables, catalogs, medallion, object storage vs. a database |
+| 2 · Lakehouse | [`../lakehouse/LEARNING.md`](../lakehouse/LEARNING.md) | Iceberg tables, catalogs (REST/Glue), snapshots & time-travel, hidden partitioning, schema evolution |
 | 3 · Data Vault | _(added in phase)_ | hubs/links/satellites, hash keys, hashdiff, why append-only |
 | 4 · Kimball | _(added in phase)_ | facts vs. dimensions, grain, SCD2, star vs. snowflake |
 | 5 · Data quality | _(added in phase)_ | freshness/SLA, test severity, contracts |
