@@ -1,0 +1,12 @@
+# .gitattributes — normalize line endings + help GitHub's language stats.
+# Why: kill CRLF/LF churn across OSes; keep generated files out of language detection.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.svg text
+*.excalidraw text
+
+# Keep vendored/generated files from skewing GitHub's language breakdown.
+uv.lock linguist-generated=true
+docs/** linguist-documentation=true

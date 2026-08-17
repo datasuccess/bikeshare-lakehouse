@@ -1,0 +1,20 @@
+{
+  "name": "bikeshare-lakehouse",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/va-h/devcontainers-features/uv:1": {}
+  },
+  "postCreateCommand": "uv sync && uv run pre-commit install",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "charliermarsh.ruff",
+        "innoverio.vscode-dbt-power-user",
+        "ms-python.python"
+      ]
+    }
+  },
+  "forwardPorts": [8080, 9000, 9001, 3000],
+  "remoteUser": "vscode"
+}

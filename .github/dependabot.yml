@@ -1,0 +1,22 @@
+# dependabot.yml — automated dependency + security-patch PRs.
+# Why: keep the supply chain current without manual polling (a senior repo habit).
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: "pip"          # reads pyproject.toml (Python deps)
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "chore"
+
+  - package-ecosystem: "devcontainers"
+    directory: "/"
+    schedule:
+      interval: "monthly"

@@ -118,8 +118,18 @@ per-phase purpose in [`docs/04-roadmap.md`](docs/04-roadmap.md).
 
 ## Quickstart
 
-> _Coming with Phase 0's build. It will be: `make up` (start the local stack) → `make run` (ingest →
-> vault → marts) → open the dashboard. 100% local, no cloud account, synthetic-safe._
+Foundation is in place today (Python 3.12 + [uv](https://docs.astral.sh/uv/)):
+
+```bash
+uv sync        # install pinned dev tooling
+make help      # list every command
+make hooks     # run repo hygiene (gitleaks + formatting) locally
+```
+
+Or open in **GitHub Codespaces / Dev Containers** — [`.devcontainer/`](.devcontainer/) sets it all up.
+
+> The full pipeline quickstart (`make up` → `make run` → open the dashboard) arrives with Phases 1–7.
+> 100% local, no cloud account, no PII. See [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 ## Design decisions
 
