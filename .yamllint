@@ -1,0 +1,11 @@
+# .yamllint — lenient YAML style config (used when the yamllint hook is enabled).
+# Why: catch broken YAML/indentation without fighting long lines in CI configs.
+extends: default
+
+rules:
+  line-length: disable
+  document-start: disable
+  truthy:
+    check-keys: false
+  comments:
+    min-spaces-from-content: 1

@@ -1,0 +1,3 @@
+# CODEOWNERS — default reviewer/owner for the repo.
+# Why: makes ownership explicit; auto-requests review on PRs.
+* @datasuccess

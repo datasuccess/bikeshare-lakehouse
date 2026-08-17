@@ -1,0 +1,35 @@
+# pyproject.toml
+# Purpose: project metadata + pinned dev tooling + lint/test config, managed by `uv`.
+# Why: reproducible environments (uv.lock) and a single source of truth for tool settings, from
+#      day one — before pipeline deps (dbt/airflow/…) land with their phases.
+[project]
+name = "bikeshare-lakehouse"
+version = "0.0.0"
+description = "Local-first open lakehouse for public bike-share data (Data Vault 2.0 -> Kimball)."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { file = "LICENSE" }
+authors = [{ name = "Toghrul Jafarov" }]
+dependencies = []
+
+# Dev-only tooling. Pipeline dependencies (dbt-duckdb, dlt, pyiceberg, apache-airflow, soda-core)
+# are added to their own groups as each phase is built — kept out until then on purpose.
+[dependency-groups]
+dev = [
+  "ruff>=0.8",
+  "sqlfluff>=3.2",
+  "pytest>=8",
+  "pre-commit>=4",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+src = ["ingestion", "orchestration", "chaos"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q"
+testpaths = ["tests"]
