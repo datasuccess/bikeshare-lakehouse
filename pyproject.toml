@@ -10,11 +10,13 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = { file = "LICENSE" }
 authors = [{ name = "Toghrul Jafarov" }]
-# Runtime deps grow per phase. Phase 1 (ingestion): HTTP client, retry, S3/MinIO.
+# Runtime deps grow per phase.
+# Phase 1 (ingestion): HTTP client, retry, S3/MinIO. Phase 2 (lakehouse): Iceberg + Arrow.
 dependencies = [
   "httpx>=0.27",
   "tenacity>=9",
   "boto3>=1.35",
+  "pyiceberg[pyarrow,s3fs,sql-sqlite]>=0.8",
 ]
 
 # Dev/test tooling. Later pipeline deps (dbt-duckdb, pyiceberg, apache-airflow, soda-core)

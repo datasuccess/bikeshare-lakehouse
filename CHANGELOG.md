@@ -6,6 +6,10 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) · Versioning: 
 ## [Unreleased]
 
 ### Added
+- **Phase 2 — lakehouse landing:** Iceberg **REST catalog** in the local stack (`apache/iceberg-rest-fixture`)
+  + `lakehouse/` package (pure Bronze→Arrow parsers; idempotent `land` into partitioned Iceberg tables
+  `raw_station_status` / `raw_station_information` / `raw_trips`; `python -m lakehouse land` CLI, `make land`).
+  Unit tests via pyiceberg's SQLite catalog (no Docker). Docs: `lakehouse/LEARNING.md`. Deps: `pyiceberg`, `pyarrow`.
 - **Phase 1 — ingestion:** local MinIO stack (`infra/docker-compose.local.yml`) + `ingestion/` package
   (GBFS discovery/snapshot loader, historical trip-file loader, resilient HTTP with 429/5xx backoff,
   env-driven S3/MinIO storage, `python -m ingestion` CLI). Unit tests (mocked API + in-memory store);

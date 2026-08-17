@@ -26,9 +26,13 @@ ingest-gbfs:      ## snapshot GBFS feeds into Bronze (station_information + stat
 ingest-trips:     ## land one month of historical trips into Bronze (MONTH=YYYYMM)
 	uv run python -m ingestion fetch-trips --month $(MONTH)
 
-# --- Pipeline (Phases 2-6) ---------------------------------------------------
+# --- Lakehouse landing (Phase 2) ---------------------------------------------
+land:             ## parse Bronze -> Iceberg tables (raw layer)
+	uv run python -m lakehouse land
+
+# --- Pipeline (Phases 3-6) ---------------------------------------------------
 run:              ## ingest -> vault -> marts -> data quality (end to end)
-	@echo "not yet implemented — lands with Phases 2-6 (see docs/04-roadmap.md)"
+	@echo "not yet implemented — lands with Phases 3-6 (see docs/04-roadmap.md)"
 
 # --- Quality -----------------------------------------------------------------
 lint:             ## ruff + sqlfluff (sqlfluff activates once dbt/ exists)
@@ -51,4 +55,4 @@ help:             ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 	  awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: setup up down ingest-gbfs ingest-trips run lint fmt test hooks clean help
+.PHONY: setup up down ingest-gbfs ingest-trips land run lint fmt test hooks clean help

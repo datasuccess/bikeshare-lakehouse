@@ -10,9 +10,9 @@
 ## Phases
 | # | Phase | 🏠/☁️ | What it delivers | Purpose (the story it tells) | Status |
 |---|-------|:---:|------------------|------------------------------|:---:|
-| **0** | Foundations | 🏠 | Docker stack (MinIO, Postgres, Airflow, catalog), CI, pre-commit, docs, conventions | reproducible $0 stack + hygiene from commit #1 | 🔵 |
-| **1** | Ingestion | 🏠 | API clients (GBFS + trip files) with retry / backoff / pagination → Bronze on MinIO | real-data credibility + resilience | ⚪ |
-| **2** | Lakehouse landing | 🏠 | Bronze → **Iceberg** on MinIO (pyiceberg + local REST catalog) | real Iceberg-on-S3 mechanics at $0 | ⚪ |
+| **0** | Foundations | 🏠 | Docker stack (MinIO, Postgres, Airflow, catalog), CI, pre-commit, docs, conventions | reproducible $0 stack + hygiene from commit #1 | ✅ |
+| **1** | Ingestion | 🏠 | API clients (GBFS + trip files) with retry / backoff / pagination → Bronze on MinIO | real-data credibility + resilience | ✅ |
+| **2** | Lakehouse landing | 🏠 | Bronze → **Iceberg** on MinIO (pyiceberg + local REST catalog) | real Iceberg-on-S3 mechanics at $0 | ✅ |
 | **3** | Data Vault 2.0 | 🏠 | dbt: hubs / links / satellites (hash keys, hashdiff, idempotent) | auditable, source-agnostic history | ⚪ |
 | **4** | Kimball marts | 🏠 | dbt: `fct_trips`, `fct_station_availability`, conformed dims | BI-ready presentation layer | ⚪ |
 | **5** | Data quality | 🏠 | Soda + dbt tests (freshness, uniqueness, bounds, row counts) | trust + a real QA gate | ⚪ |

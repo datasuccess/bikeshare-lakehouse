@@ -25,6 +25,7 @@ class Settings:
     gbfs_discovery_url: str
     system_id: str
     trips_base_url: str
+    catalog_uri: str
 
     @classmethod
     def from_env(cls) -> Settings:
@@ -37,4 +38,10 @@ class Settings:
             gbfs_discovery_url=os.environ.get("GBFS_DISCOVERY_URL", _DEFAULT_GBFS),
             system_id=os.environ.get("SYSTEM_ID", "dca-cabi"),
             trips_base_url=os.environ.get("TRIPS_BASE_URL", _DEFAULT_TRIPS),
+            catalog_uri=os.environ.get("CATALOG_URI", "http://localhost:8181"),
         )
+
+    @property
+    def warehouse(self) -> str:
+        """Iceberg warehouse location on the object store (bucket-relative)."""
+        return f"s3://{self.bucket}/warehouse"
