@@ -21,12 +21,11 @@ repos:
     hooks:
       - id: gitleaks
 
-  # Enabled once Python code exists (Phase 1+):
-  # - repo: https://github.com/astral-sh/ruff-pre-commit
-  #   rev: v0.8.4
-  #   hooks:
-  #     - id: ruff
-  #     - id: ruff-format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.4
+    hooks:
+      - id: ruff
+      - id: ruff-format
 
   # Enabled once dbt models exist (Phase 3+):
   # - repo: https://github.com/sqlfluff/sqlfluff

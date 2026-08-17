@@ -6,6 +6,11 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) · Versioning: 
 ## [Unreleased]
 
 ### Added
+- **Phase 1 — ingestion:** local MinIO stack (`infra/docker-compose.local.yml`) + `ingestion/` package
+  (GBFS discovery/snapshot loader, historical trip-file loader, resilient HTTP with 429/5xx backoff,
+  env-driven S3/MinIO storage, `python -m ingestion` CLI). Unit tests (mocked API + in-memory store);
+  ruff + pytest wired into CI. Docs: `DATA_SOURCES` (Capital Bikeshare), `LEARNING_GUIDE`, `GLOSSARY`,
+  and `ingestion/LEARNING.md`.
 - **Phase 0 — scaffold:** repo structure, docs (overview, architecture, ADRs, data model, roadmap,
   conventions, cost, case study), per-component purpose READMEs, and hygiene (LICENSE, `.gitignore`,
   `.env.example`, pre-commit, CI secret-scan + hygiene, SECURITY).

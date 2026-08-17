@@ -25,10 +25,22 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run pre-commit (gitleaks, detect-private-key, hygiene)
+      - name: Run pre-commit (gitleaks, detect-private-key, hygiene, ruff)
         uses: pre-commit/action@v3.0.1
 
-  # Placeholder for Phase 1+ — uncomment once dbt/ exists (installs deps, then sqlfluff + dbt build):
+  tests:
+    name: ruff + pytest (unit, no network)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync
+      - run: uv run ruff check .
+      - run: uv run pytest
+
+  # Placeholder for Phase 3+ — uncomment once dbt/ exists (installs deps, then sqlfluff + dbt build):
   # build:
   #   name: dbt build + test (DuckDB)
   #   runs-on: ubuntu-latest
