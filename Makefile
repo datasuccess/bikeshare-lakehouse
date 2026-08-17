@@ -17,9 +17,18 @@ up:               ## start the local stack (MinIO + Postgres + Airflow + catalog
 down:             ## stop the local stack
 	docker compose -f infra/docker-compose.local.yml down
 
-# --- Pipeline (Phases 1-6) ---------------------------------------------------
+# --- Ingestion (Phase 1) -----------------------------------------------------
+MONTH ?= 202401           # override: make ingest-trips MONTH=202402
+
+ingest-gbfs:      ## snapshot GBFS feeds into Bronze (station_information + status)
+	uv run python -m ingestion fetch-gbfs --feeds station_information station_status
+
+ingest-trips:     ## land one month of historical trips into Bronze (MONTH=YYYYMM)
+	uv run python -m ingestion fetch-trips --month $(MONTH)
+
+# --- Pipeline (Phases 2-6) ---------------------------------------------------
 run:              ## ingest -> vault -> marts -> data quality (end to end)
-	@echo "not yet implemented — lands with Phases 1-6 (see docs/04-roadmap.md)"
+	@echo "not yet implemented — lands with Phases 2-6 (see docs/04-roadmap.md)"
 
 # --- Quality -----------------------------------------------------------------
 lint:             ## ruff + sqlfluff (sqlfluff activates once dbt/ exists)
@@ -42,4 +51,4 @@ help:             ## show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
 	  awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 
-.PHONY: setup up down run lint fmt test hooks clean help
+.PHONY: setup up down ingest-gbfs ingest-trips run lint fmt test hooks clean help
