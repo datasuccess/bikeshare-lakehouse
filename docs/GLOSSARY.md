@@ -13,6 +13,18 @@
 - **Parquet** — a columnar file format; efficient for analytics scans.
 - **Catalog** — the registry that maps table names → their Iceberg metadata/files.
 
+## Object-store features (MinIO & S3)
+- **Object versioning** — keep every version of an object so overwrites/deletes can be rolled back.
+- **Object Lock / WORM** — write-once-read-many with retention/legal-hold; immutability for compliance.
+- **Lifecycle (ILM)** — rules that auto-expire or transition objects as they age.
+- **Storage class** — a durability/cost/latency tier for an object (S3: Standard, IA, Glacier…). MinIO
+  has no Glacier; it tiers cold data to a *remote* backend and uses erasure-coding levels instead.
+- **Erasure coding** — split each object into data + parity shards across drives/nodes so it survives
+  disk/node loss; how MinIO reaches S3-like durability on your own hardware.
+- **Replication** — keep buckets in sync across clusters or clouds (S3 CRR/SRR).
+- **SSE (server-side encryption)** — encrypt objects at rest (SSE-S3 / SSE-KMS / SSE-C) + TLS in transit.
+- **S3 Select** — run SQL against a single CSV/JSON/Parquet object without downloading it.
+
 ## Medallion (data quality zones)
 - **Bronze** — raw, immutable landing of exactly what the source returned; replayable.
 - **Silver** — cleansed + integrated data; here modelled as the Data Vault.
@@ -40,6 +52,8 @@
 - **Backfill** — loading historical periods after the fact.
 - **Exponential backoff** — waiting progressively longer between retries of a failing call.
 - **TTL** — "time to live"; how long a feed value is valid (GBFS says 60s) — don't poll faster.
+- **`make`** — a task runner: `make <target>` runs the shell recipe for that target in the `Makefile`;
+  our single, documented command interface (e.g. `make up` = `docker compose … up -d`).
 - **DAG** — directed acyclic graph; Airflow's model of tasks + dependencies.
 - **Freshness / SLA** — how recent the data is vs. the target we commit to.
 - **Data contract** — an enforced agreement on a dataset's schema/semantics.
