@@ -1,0 +1,22 @@
+# profiles.yml
+# Purpose: dbt-duckdb connection. Local target = DuckDB reading Iceberg on MinIO.
+# Why: same models run on Snowflake/BigQuery/Redshift in the cloud by adding targets here (ADR-006).
+# The S3 secret + iceberg/httpfs extensions let DuckDB read Iceberg data files from MinIO.
+bikeshare:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: "{{ env_var('DUCKDB_PATH', 'dev.duckdb') }}"
+      threads: 1
+      extensions:
+        - httpfs
+        - iceberg
+      secrets:
+        - type: s3
+          key_id: "{{ env_var('AWS_ACCESS_KEY_ID', 'minioadmin') }}"
+          secret: "{{ env_var('AWS_SECRET_ACCESS_KEY', 'minioadmin') }}"
+          endpoint: "{{ env_var('DUCKDB_S3_ENDPOINT', 'localhost:9000') }}"
+          url_style: path
+          use_ssl: false
+          region: "{{ env_var('AWS_REGION', 'us-east-1') }}"

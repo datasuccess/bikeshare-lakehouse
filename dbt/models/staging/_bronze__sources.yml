@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw Iceberg tables landed in Phase 2 (read via the attached `lake` catalog)."
+    database: lake
+    schema: bronze
+    tables:
+      - name: raw_station_status
+      - name: raw_station_information
+      - name: raw_trips

@@ -28,6 +28,7 @@ dev = [
   "pytest>=8",
   "pre-commit>=4",
   "respx>=0.21",
+  "dbt-duckdb>=1.9",
 ]
 
 [tool.ruff]

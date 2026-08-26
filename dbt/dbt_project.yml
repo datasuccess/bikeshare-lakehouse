@@ -1,0 +1,26 @@
+# dbt_project.yml
+# Purpose: the one dbt project — staging + Data Vault 2.0 (Silver), extended across phases.
+# Why: dbt on DuckDB reads the Iceberg raw tables (Phase 2) and builds the integrated vault.
+name: bikeshare
+version: "0.1.0"
+config-version: 2
+profile: bikeshare
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+target-path: "target"
+clean-targets: ["target", "dbt_packages"]
+
+# Attach the Iceberg REST catalog on every run so `lake.bronze.raw_*` are readable (see macro).
+on-run-start:
+  - "{{ attach_lakehouse() }}"
+
+models:
+  bikeshare:
+    # staging is materialized as TABLES: they read the Iceberg catalog during the run (when it's
+    # attached via on-run-start), so everything downstream reads local DuckDB — no attach needed.
+    staging:
+      +materialized: table
+    vault:
+      +materialized: incremental
+      +incremental_strategy: append
