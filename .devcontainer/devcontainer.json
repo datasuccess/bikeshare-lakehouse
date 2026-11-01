@@ -2,7 +2,7 @@
   "name": "bikeshare-lakehouse",
   "image": "mcr.microsoft.com/devcontainers/python:3.12",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:4": {},
     "ghcr.io/va-h/devcontainers-features/uv:1": {}
   },
   "postCreateCommand": "uv sync && uv run pre-commit install",
